@@ -7,7 +7,6 @@ import {
   BookOpen,
   Bot,
   LayoutDashboard,
-  Globe,
   Info,
   Mail,
   Home,
@@ -20,7 +19,6 @@ const navItems = [
   { name: "Notes", path: "/notes", icon: BookOpen },
   { name: "AI Assistant", path: "/ai-assistant", icon: Bot },
   { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-  { name: "Global Hub", path: "/global-hub", icon: Globe },
   { name: "About", path: "/about", icon: Info },
   { name: "Contact", path: "/contact", icon: Mail },
 ];

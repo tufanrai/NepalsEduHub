@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { Bot, Sparkles, BookOpen, Send, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const suggestedQuestions = [
   "Explain Newton's Laws of Motion",
@@ -12,8 +12,45 @@ const suggestedQuestions = [
 ];
 
 export default function AIAssistant() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
+  const [ask, setAsk] = useState<boolean>(false);
 
+  async function FetchResult() {
+    try {
+      // Ai api
+      let response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer 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`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "xiaomi/mimo-v2-flash:free",
+            messages: [
+              {
+                role: "user",
+                content: message,
+              },
+            ],
+            reasoning: { enabled: true },
+          }),
+        }
+      );
+
+      // Extract the assistant message with reasoning_details and save it to the response variable
+      const result = await response.json();
+      response = result.choices[0].message.content;
+      console.log(response);
+    } catch (err) {
+      return err;
+    }
+  }
+
+  const askAI = () => {
+    FetchResult();
+  };
   return (
     <Layout>
       <div className="min-h-[calc(100vh-6rem)] flex flex-col">
@@ -44,8 +81,9 @@ export default function AIAssistant() {
               transition={{ delay: 0.2 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto"
             >
-              Get instant help with your studies. Ask questions, get explanations, 
-              and learn concepts tailored to the Nepali curriculum.
+              Get instant help with your studies. Ask questions, get
+              explanations, and learn concepts tailored to the Nepali
+              curriculum.
             </motion.p>
           </div>
         </section>
@@ -67,10 +105,13 @@ export default function AIAssistant() {
                     <Bot className="w-5 h-5 text-primary-foreground" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-foreground mb-2">AI Assistant</p>
+                    <p className="font-medium text-foreground mb-2">
+                      AI Assistant
+                    </p>
                     <div className="bg-secondary/50 rounded-xl rounded-tl-none p-4">
                       <p className="text-foreground mb-4">
-                        नमस्ते! 👋 I'm your AI Study Assistant. I'm here to help you with:
+                        नमस्ते! 👋 I'm your AI Study Assistant. I'm here to help
+                        you with:
                       </p>
                       <ul className="space-y-2 text-muted-foreground">
                         <li className="flex items-start gap-2">
@@ -117,17 +158,21 @@ export default function AIAssistant() {
                 <div className="flex items-center gap-3">
                   <input
                     type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => {
+                      setTimeout(() => {
+                        setMessage(e.target.value);
+                      }, 2000);
+                    }}
                     placeholder="Ask anything about your studies..."
                     className="flex-1 h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
                   />
-                  <Button size="lg" className="h-12 px-6">
+                  <Button onClick={askAI} size="lg" className="h-12 px-6">
                     <Send className="w-5 h-5" />
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground mt-3 text-center">
-                  AI responses are for educational purposes. Always verify important information with your teachers.
+                  AI responses are for educational purposes. Always verify
+                  important information with your teachers.
                 </p>
               </div>
             </motion.div>

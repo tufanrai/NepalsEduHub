@@ -7,7 +7,6 @@ import Index from "./pages/Index";
 import Notes from "./pages/Notes";
 import AIAssistant from "./pages/AIAssistant";
 import Dashboard from "./pages/Dashboard";
-import GlobalHub from "./pages/GlobalHub";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -25,7 +24,6 @@ const App = () => (
           <Route path="/notes" element={<Notes />} />
           <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/global-hub" element={<GlobalHub />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

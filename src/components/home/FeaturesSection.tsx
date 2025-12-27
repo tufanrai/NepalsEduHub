@@ -1,36 +1,36 @@
 import { motion } from "framer-motion";
-import { Bot, Users, Download, Brain, Target, Clock } from "lucide-react";
+import { Bot, Download, Brain, Target, Clock } from "lucide-react";
 
 const features = [
   {
     icon: Bot,
     title: "AI Study Assistant",
-    description: "Get instant help with your questions using our intelligent AI tutor that understands Nepali curriculum",
+    description:
+      "Get instant help with your questions using our intelligent AI tutor that understands Nepali curriculum",
   },
   {
     icon: Download,
     title: "Offline Access",
-    description: "Download notes and study materials to access them anytime, anywhere without internet",
-  },
-  {
-    icon: Users,
-    title: "Global Connection",
-    description: "Collaborate with students across Nepal to solve real-world problems in rural communities",
+    description:
+      "Download notes and study materials to access them anytime, anywhere without internet",
   },
   {
     icon: Brain,
     title: "Smart Learning",
-    description: "Personalized study recommendations based on your progress and learning patterns",
+    description:
+      "Personalized study recommendations based on your progress and learning patterns",
   },
   {
     icon: Target,
     title: "Exam Preparation",
-    description: "Past papers, model questions, and targeted practice for board exams and university entrance",
+    description:
+      "Past papers, model questions, and targeted practice for board exams and university entrance",
   },
   {
     icon: Clock,
     title: "Progress Tracking",
-    description: "Monitor your study goals, maintain streaks, and track your improvement over time",
+    description:
+      "Monitor your study goals, maintain streaks, and track your improvement over time",
   },
 ];
 
@@ -49,7 +49,8 @@ export function FeaturesSection() {
             Everything You Need to <span className="gradient-text">Excel</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Powerful features designed specifically for Nepali students to make learning effective and enjoyable
+            Powerful features designed specifically for Nepali students to make
+            learning effective and enjoyable
           </p>
         </motion.div>
 
