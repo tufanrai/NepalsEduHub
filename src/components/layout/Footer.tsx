@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Facebook, Instagram, Linkedin, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import {
+  BookOpen,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Mail,
+  MapPin,
+  Phone,
+  Youtube,
+} from "lucide-react";
 
 const footerLinks = {
   quickLinks: [
@@ -26,7 +36,7 @@ const socialLinks = [
   { name: "Facebook", icon: Facebook, href: "#" },
   { name: "Instagram", icon: Instagram, href: "#" },
   { name: "LinkedIn", icon: Linkedin, href: "#" },
-  { name: "Twitter", icon: Twitter, href: "#" },
+  { name: "YouTube", icon: Youtube, href: "#" },
 ];
 
 export function Footer() {
@@ -43,8 +53,9 @@ export function Footer() {
               <span className="text-xl font-bold">Nepal Student Hub</span>
             </Link>
             <p className="text-accent-foreground/70 mb-6 max-w-sm leading-relaxed">
-              Empowering Nepali students with quality education resources, AI-powered learning, 
-              and a collaborative community to solve real-world challenges.
+              Empowering Nepali students with quality education resources,
+              AI-powered learning, and a collaborative community to solve
+              real-world challenges.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => {
@@ -133,7 +144,8 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-accent-foreground/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-accent-foreground/60 text-sm">
-              © {new Date().getFullYear()} Nepal Student Hub. All rights reserved.
+              © {new Date().getFullYear()} Nepal Student Hub. All rights
+              reserved.
             </p>
             <p className="text-accent-foreground/60 text-sm">
               Made with ❤️ for students of Nepal

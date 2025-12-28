@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Bot, Sparkles, BookOpen, Send, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { P } from "node_modules/framer-motion/dist/types.d-DagZKalS";
 
 const suggestedQuestions = [
   "Explain Newton's Laws of Motion",
@@ -11,19 +12,23 @@ const suggestedQuestions = [
   "Help me understand the Nepali constitution",
 ];
 
+const api_key = import.meta.env.VITE_API_KEY ?? "";
+
 export default function AIAssistant() {
   const [message, setMessage] = useState<string>("");
-  const [ask, setAsk] = useState<boolean>(false);
+  const [reply, setReply] = useState<any | undefined>(undefined);
+  const [showSuggestion, setShowSuggestion] = useState<boolean>(true);
 
+  console.log(reply);
   async function FetchResult() {
     try {
-      // Ai api
+      // First API call with reasoning
       let response = await fetch(
         "https://openrouter.ai/api/v1/chat/completions",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer ${api_key}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -42,7 +47,7 @@ export default function AIAssistant() {
       // Extract the assistant message with reasoning_details and save it to the response variable
       const result = await response.json();
       response = result.choices[0].message.content;
-      console.log(response);
+      setReply(response);
     } catch (err) {
       return err;
     }
@@ -51,6 +56,7 @@ export default function AIAssistant() {
   const askAI = () => {
     FetchResult();
   };
+
   return (
     <Layout>
       <div className="min-h-[calc(100vh-6rem)] flex flex-col">
@@ -108,28 +114,115 @@ export default function AIAssistant() {
                     <p className="font-medium text-foreground mb-2">
                       AI Assistant
                     </p>
-                    <div className="bg-secondary/50 rounded-xl rounded-tl-none p-4">
-                      <p className="text-foreground mb-4">
-                        नमस्ते! 👋 I'm your AI Study Assistant. I'm here to help
-                        you with:
-                      </p>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li className="flex items-start gap-2">
-                          <BookOpen className="w-4 h-4 mt-1 text-primary" />
-                          <span>Explaining concepts from your syllabus</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Lightbulb className="w-4 h-4 mt-1 text-primary" />
-                          <span>Solving practice problems step by step</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Sparkles className="w-4 h-4 mt-1 text-primary" />
-                          <span>Providing study tips and exam strategies</span>
-                        </li>
-                      </ul>
-                      <p className="text-foreground mt-4">
-                        What would you like to learn today?
-                      </p>
+                    <div
+                      style={{ whiteSpace: "pre-wrap" }}
+                      className="bg-secondary/50 rounded-xl rounded-tl-none p-4"
+                    >
+                      {reply && typeof reply !== undefined ? (
+                        <>
+                          {reply.split("\n\n").map((block, idx) => {
+                            if (block.startsWith("###")) {
+                              return (
+                                <h2
+                                  key={idx}
+                                  className="text-xl font-bold text-foreground mt-8 mb-4"
+                                >
+                                  {block.replace("###", "")}
+                                </h2>
+                              );
+                            }
+
+                            if (
+                              block.startsWith("**") &&
+                              block.includes(":**")
+                            ) {
+                              return (
+                                <p
+                                  key={idx}
+                                  className="text-foreground font-semibold mb-2"
+                                >
+                                  {block.replace(/\*\*/g, "")}
+                                </p>
+                              );
+                            }
+
+                            if (
+                              (!block.startsWith("**") &&
+                                !block.includes(":**")) ||
+                              !block.startsWith("###") ||
+                              !block.startsWith("*")
+                            ) {
+                              return (
+                                <p
+                                  key={idx}
+                                  className="text-foreground font-regural mb-2"
+                                >
+                                  {block}
+                                </p>
+                              );
+                            }
+                            if (block.startsWith("* ")) {
+                              const items = block.split("\n");
+                              return (
+                                <ul
+                                  key={idx}
+                                  className="list-disc list-inside space-y-2 text-muted-foreground mb-4"
+                                >
+                                  {items.map((item, i) => (
+                                    <li key={i}>{item.replace("* ", "")}</li>
+                                  ))}
+                                </ul>
+                              );
+                            }
+
+                            if (block.match(/^\d\./)) {
+                              const items = block.split("\n");
+                              return (
+                                <ol
+                                  key={idx}
+                                  className="list-decimal list-inside space-y-2 text-muted-foreground mb-4"
+                                >
+                                  {items.map((item, i) => (
+                                    <li key={i}>
+                                      {item.replace(/^\d\.\s/, "")}
+                                    </li>
+                                  ))}
+                                </ol>
+                              );
+                            }
+                          })}
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-foreground mb-4">
+                            नमस्ते! 👋 I'm your AI Study Assistant. I'm here to
+                            help you with:
+                          </p>
+                          <ul className="space-y-2 text-muted-foreground">
+                            <li className="flex items-start gap-2">
+                              <BookOpen className="w-4 h-4 mt-1 text-primary" />
+                              <span>
+                                Explaining concepts from your syllabus
+                              </span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <Lightbulb className="w-4 h-4 mt-1 text-primary" />
+                              <span>
+                                Solving practice problems step by step
+                              </span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <Sparkles className="w-4 h-4 mt-1 text-primary" />
+                              <span>
+                                Providing study tips and exam strategies
+                              </span>
+                            </li>
+                          </ul>
+                          <p className="text-foreground mt-4">
+                            What would you like to learn today?
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -158,10 +251,9 @@ export default function AIAssistant() {
                 <div className="flex items-center gap-3">
                   <input
                     type="text"
+                    value={message}
                     onChange={(e) => {
-                      setTimeout(() => {
-                        setMessage(e.target.value);
-                      }, 2000);
+                      setMessage(e.target.value);
                     }}
                     placeholder="Ask anything about your studies..."
                     className="flex-1 h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
