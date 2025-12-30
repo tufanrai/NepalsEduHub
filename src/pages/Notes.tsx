@@ -478,7 +478,7 @@ export default function Notes() {
                           {notes
                             .filter(
                               (note) =>
-                                note.title.split(" ").includes(searchQuery) ||
+                                note.title.match(searchQuery) ||
                                 note.subject.match(searchQuery)
                             )
                             .map((note, index) => (
