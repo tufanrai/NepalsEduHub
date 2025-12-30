@@ -18,7 +18,6 @@ const navItems = [
   { name: "Home", path: "/", icon: Home },
   { name: "Notes", path: "/notes", icon: BookOpen },
   { name: "AI Assistant", path: "/ai-assistant", icon: Bot },
-  { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { name: "About", path: "/about", icon: Info },
   { name: "Contact", path: "/contact", icon: Mail },
 ];
@@ -61,14 +60,6 @@ export function Navbar() {
                   </Link>
                 );
               })}
-            </div>
-
-            {/* CTA Button */}
-            <div className="hidden lg:flex items-center gap-3">
-              <Button variant="subtle" size="sm">
-                Sign In
-              </Button>
-              <Button size="sm">Get Started</Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -118,12 +109,6 @@ export function Navbar() {
                   </Link>
                 );
               })}
-              <div className="pt-4 border-t border-border space-y-2">
-                <Button variant="subtle" className="w-full">
-                  Sign In
-                </Button>
-                <Button className="w-full">Get Started</Button>
-              </div>
             </div>
           </motion.div>
         )}

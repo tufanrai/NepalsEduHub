@@ -2,59 +2,26 @@ import { Layout } from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { Bot, Sparkles, BookOpen, Send, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { P } from "node_modules/framer-motion/dist/types.d-DagZKalS";
-
-const suggestedQuestions = [
-  "Explain Newton's Laws of Motion",
-  "How do I solve quadratic equations?",
-  "What is photosynthesis?",
-  "Help me understand the Nepali constitution",
-];
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import querySchema from "@/components/schema/querySchema";
 
 const api_key = import.meta.env.VITE_API_KEY ?? "";
 
 export default function AIAssistant() {
-  const [message, setMessage] = useState<string>("");
   const [reply, setReply] = useState<any | undefined>(undefined);
-  const [showSuggestion, setShowSuggestion] = useState<boolean>(true);
 
-  console.log(reply);
-  async function FetchResult() {
-    try {
-      // First API call with reasoning
-      let response = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${api_key}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "xiaomi/mimo-v2-flash:free",
-            messages: [
-              {
-                role: "user",
-                content: message,
-              },
-            ],
-            reasoning: { enabled: true },
-          }),
-        }
-      );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(querySchema),
+  });
 
-      // Extract the assistant message with reasoning_details and save it to the response variable
-      const result = await response.json();
-      response = result.choices[0].message.content;
-      setReply(response);
-    } catch (err) {
-      return err;
-    }
-  }
-
-  const askAI = () => {
-    FetchResult();
+  const askAI = (data: any) => {
+    console.log(data);
   };
 
   return (
@@ -228,40 +195,21 @@ export default function AIAssistant() {
                 </div>
               </div>
 
-              {/* Suggested Questions */}
-              <div className="px-6 py-4 border-t border-border bg-secondary/30">
-                <p className="text-sm text-muted-foreground mb-3">
-                  Try asking:
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {suggestedQuestions.map((question) => (
-                    <button
-                      key={question}
-                      onClick={() => setMessage(question)}
-                      className="px-3 py-1.5 rounded-full bg-card border border-border text-sm text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                    >
-                      {question}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Input Area */}
               <div className="p-4 border-t border-border">
-                <div className="flex items-center gap-3">
-                  <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => {
-                      setMessage(e.target.value);
-                    }}
-                    placeholder="Ask anything about your studies..."
-                    className="flex-1 h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
-                  />
-                  <Button onClick={askAI} size="lg" className="h-12 px-6">
-                    <Send className="w-5 h-5" />
-                  </Button>
-                </div>
+                <form onSubmit={handleSubmit(askAI)}>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      {...register("query")}
+                      placeholder="Ask anything about your studies..."
+                      className="flex-1 h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
+                    />
+                    <Button type="submit" size="lg" className="h-12 px-6">
+                      <Send className="w-5 h-5" />
+                    </Button>
+                  </div>
+                </form>
                 <p className="text-xs text-muted-foreground mt-3 text-center">
                   AI responses are for educational purposes. Always verify
                   important information with your teachers.

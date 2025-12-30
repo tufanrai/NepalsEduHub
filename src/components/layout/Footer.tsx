@@ -15,8 +15,6 @@ const footerLinks = {
   quickLinks: [
     { name: "Notes Library", path: "/notes" },
     { name: "AI Assistant", path: "/ai-assistant" },
-    { name: "Student Dashboard", path: "/dashboard" },
-    { name: "Global Connection Hub", path: "/global-hub" },
   ],
   resources: [
     { name: "Grade 8 Notes", path: "/notes?level=grade-8" },

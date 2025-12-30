@@ -4,7 +4,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import {
   Search,
-  Filter,
   Grid3X3,
   List,
   Download,
@@ -14,6 +13,7 @@ import {
   Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const levels = [
   { id: "all", name: "All Levels" },
@@ -121,7 +121,7 @@ const notes = [
 
 export default function Notes() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLevel, setSelectedLevel] = useState("all");
+  const [selectedLevel, setSelectedLevel] = useState("All Levels");
   const [selectedSubject, setSelectedSubject] = useState("All Subjects");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
@@ -140,7 +140,8 @@ export default function Notes() {
                 Notes Library
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Access thousands of study materials organized by level and subject
+                Access thousands of study materials organized by level and
+                subject
               </p>
             </motion.div>
 
@@ -155,8 +156,12 @@ export default function Notes() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  defaultValue={searchQuery}
+                  onChange={(e) => {
+                    setTimeout(() => {
+                      setSearchQuery(e.target.value);
+                    }, 800);
+                  }}
                   placeholder="Search notes by title, subject, or topic..."
                   className="w-full h-14 pl-12 pr-4 rounded-xl bg-card border border-border shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
                 />
@@ -175,10 +180,10 @@ export default function Notes() {
                 {levels.map((level) => (
                   <button
                     key={level.id}
-                    onClick={() => setSelectedLevel(level.id)}
+                    onClick={() => setSelectedLevel(level.name)}
                     className={cn(
                       "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                      selectedLevel === level.id
+                      selectedLevel === level.name
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     )}
@@ -232,6 +237,7 @@ export default function Notes() {
             </div>
 
             {/* Notes Grid/List */}
+
             <div
               className={cn(
                 "gap-6",
@@ -240,63 +246,384 @@ export default function Notes() {
                   : "flex flex-col"
               )}
             >
-              {notes.map((note, index) => (
-                <motion.div
-                  key={note.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className={cn(
-                    "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
-                    viewMode === "list" && "flex"
+              {/* List of specific filter notes Filtered by only subjet as well  */}
+              {selectedLevel && selectedLevel !== "All Levels" ? (
+                <>
+                  {selectedSubject && selectedSubject !== "All Subjects" ? (
+                    <>
+                      {notes
+                        .filter(
+                          (note) =>
+                            note.level == selectedLevel &&
+                            note.subject == selectedSubject
+                        )
+                        .map((note, index) => (
+                          <Link to={`/notes/${note.id}`}>
+                            <motion.div
+                              key={note.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={cn(
+                                "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
+                                viewMode === "list" && "flex"
+                              )}
+                            >
+                              {/* Thumbnail */}
+                              <div
+                                className={cn(
+                                  "relative bg-secondary",
+                                  viewMode === "grid"
+                                    ? "h-40"
+                                    : "w-48 h-32 flex-shrink-0"
+                                )}
+                              >
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <BookOpen className="w-12 h-12 text-muted-foreground/30" />
+                                </div>
+                                <div className="absolute top-3 left-3">
+                                  <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
+                                    {note.level}
+                                  </span>
+                                </div>
+                                <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Bookmark className="w-4 h-4" />
+                                </button>
+                              </div>
+
+                              {/* Content */}
+                              <div
+                                className={cn(
+                                  "p-5",
+                                  viewMode === "list" && "flex-1"
+                                )}
+                              >
+                                <span className="text-xs text-primary font-medium">
+                                  {note.subject}
+                                </span>
+                                <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                  {note.title}
+                                </h3>
+
+                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Eye className="w-3.5 h-3.5" />
+                                    {note.views}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Download className="w-3.5 h-3.5" />
+                                    {note.downloads}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3.5 h-3.5" />
+                                    {note.duration}
+                                  </span>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </Link>
+                        ))}
+                    </>
+                  ) : (
+                    <>
+                      {notes
+                        .filter((note, index) => note.level == selectedLevel)
+                        .map((note, index) => (
+                          <Link to={`/notes/${note.id}`}>
+                            <motion.div
+                              key={note.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={cn(
+                                "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
+                                viewMode === "list" && "flex"
+                              )}
+                            >
+                              {/* Thumbnail */}
+                              <div
+                                className={cn(
+                                  "relative bg-secondary",
+                                  viewMode === "grid"
+                                    ? "h-40"
+                                    : "w-48 h-32 flex-shrink-0"
+                                )}
+                              >
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <BookOpen className="w-12 h-12 text-muted-foreground/30" />
+                                </div>
+                                <div className="absolute top-3 left-3">
+                                  <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
+                                    {note.level}
+                                  </span>
+                                </div>
+                                <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Bookmark className="w-4 h-4" />
+                                </button>
+                              </div>
+
+                              {/* Content */}
+                              <div
+                                className={cn(
+                                  "p-5",
+                                  viewMode === "list" && "flex-1"
+                                )}
+                              >
+                                <span className="text-xs text-primary font-medium">
+                                  {note.subject}
+                                </span>
+                                <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                  {note.title}
+                                </h3>
+
+                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Eye className="w-3.5 h-3.5" />
+                                    {note.views}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Download className="w-3.5 h-3.5" />
+                                    {note.downloads}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3.5 h-3.5" />
+                                    {note.duration}
+                                  </span>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </Link>
+                        ))}
+                    </>
                   )}
-                >
-                  {/* Thumbnail */}
-                  <div
-                    className={cn(
-                      "relative bg-secondary",
-                      viewMode === "grid" ? "h-40" : "w-48 h-32 flex-shrink-0"
-                    )}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <BookOpen className="w-12 h-12 text-muted-foreground/30" />
-                    </div>
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
-                        {note.level}
-                      </span>
-                    </div>
-                    <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Bookmark className="w-4 h-4" />
-                    </button>
-                  </div>
+                </>
+              ) : (
+                <>
+                  {/* List of all the notes by subject */}
+                  {selectedSubject && selectedSubject !== "All Subjects" ? (
+                    <>
+                      {notes
+                        .filter((note) => note.subject == selectedSubject)
+                        .map((note, index) => (
+                          <Link to={`/notes/${note.id}`}>
+                            <motion.div
+                              key={note.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={cn(
+                                "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
+                                viewMode === "list" && "flex"
+                              )}
+                            >
+                              {/* Thumbnail */}
+                              <div
+                                className={cn(
+                                  "relative bg-secondary",
+                                  viewMode === "grid"
+                                    ? "h-40"
+                                    : "w-48 h-32 flex-shrink-0"
+                                )}
+                              >
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <BookOpen className="w-12 h-12 text-muted-foreground/30" />
+                                </div>
+                                <div className="absolute top-3 left-3">
+                                  <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
+                                    {note.level}
+                                  </span>
+                                </div>
+                                <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Bookmark className="w-4 h-4" />
+                                </button>
+                              </div>
 
-                  {/* Content */}
-                  <div className={cn("p-5", viewMode === "list" && "flex-1")}>
-                    <span className="text-xs text-primary font-medium">
-                      {note.subject}
-                    </span>
-                    <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                      {note.title}
-                    </h3>
+                              {/* Content */}
+                              <div
+                                className={cn(
+                                  "p-5",
+                                  viewMode === "list" && "flex-1"
+                                )}
+                              >
+                                <span className="text-xs text-primary font-medium">
+                                  {note.subject}
+                                </span>
+                                <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                  {note.title}
+                                </h3>
 
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Eye className="w-3.5 h-3.5" />
-                        {note.views}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Download className="w-3.5 h-3.5" />
-                        {note.downloads}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {note.duration}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Eye className="w-3.5 h-3.5" />
+                                    {note.views}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Download className="w-3.5 h-3.5" />
+                                    {note.downloads}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3.5 h-3.5" />
+                                    {note.duration}
+                                  </span>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </Link>
+                        ))}
+                    </>
+                  ) : (
+                    <>
+                      {/* List of all the notes searched from search section */}
+                      {searchQuery && searchQuery !== " " ? (
+                        <>
+                          {notes
+                            .filter(
+                              (note) =>
+                                note.title.split(" ").includes(searchQuery) ||
+                                note.subject.split(" ").includes(searchQuery)
+                            )
+                            .map((note, index) => (
+                              <Link to={`/notes/${note.id}`}>
+                                <motion.div
+                                  key={note.id}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: index * 0.05 }}
+                                  className={cn(
+                                    "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
+                                    viewMode === "list" && "flex"
+                                  )}
+                                >
+                                  {/* Thumbnail */}
+                                  <div
+                                    className={cn(
+                                      "relative bg-secondary",
+                                      viewMode === "grid"
+                                        ? "h-40"
+                                        : "w-48 h-32 flex-shrink-0"
+                                    )}
+                                  >
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <BookOpen className="w-12 h-12 text-muted-foreground/30" />
+                                    </div>
+                                    <div className="absolute top-3 left-3">
+                                      <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
+                                        {note.level}
+                                      </span>
+                                    </div>
+                                    <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <Bookmark className="w-4 h-4" />
+                                    </button>
+                                  </div>
+
+                                  {/* Content */}
+                                  <div
+                                    className={cn(
+                                      "p-5",
+                                      viewMode === "list" && "flex-1"
+                                    )}
+                                  >
+                                    <span className="text-xs text-primary font-medium">
+                                      {note.subject}
+                                    </span>
+                                    <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                      {note.title}
+                                    </h3>
+
+                                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                      <span className="flex items-center gap-1">
+                                        <Eye className="w-3.5 h-3.5" />
+                                        {note.views}
+                                      </span>
+                                      <span className="flex items-center gap-1">
+                                        <Download className="w-3.5 h-3.5" />
+                                        {note.downloads}
+                                      </span>
+                                      <span className="flex items-center gap-1">
+                                        <Clock className="w-3.5 h-3.5" />
+                                        {note.duration}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </Link>
+                            ))}
+                        </>
+                      ) : (
+                        <>
+                          {/* List of all notes */}
+                          {notes.map((note, index) => (
+                            <Link to={`/notes/${note.id}`}>
+                              <motion.div
+                                key={note.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.05 }}
+                                className={cn(
+                                  "group bg-card rounded-xl border border-border/50 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300 cursor-pointer",
+                                  viewMode === "list" && "flex"
+                                )}
+                              >
+                                {/* Thumbnail */}
+                                <div
+                                  className={cn(
+                                    "relative bg-secondary",
+                                    viewMode === "grid"
+                                      ? "h-40"
+                                      : "w-48 h-32 flex-shrink-0"
+                                  )}
+                                >
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <BookOpen className="w-12 h-12 text-muted-foreground/30" />
+                                  </div>
+                                  <div className="absolute top-3 left-3">
+                                    <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
+                                      {note.level}
+                                    </span>
+                                  </div>
+                                  <button className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-card/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Bookmark className="w-4 h-4" />
+                                  </button>
+                                </div>
+
+                                {/* Content */}
+                                <div
+                                  className={cn(
+                                    "p-5",
+                                    viewMode === "list" && "flex-1"
+                                  )}
+                                >
+                                  <span className="text-xs text-primary font-medium">
+                                    {note.subject}
+                                  </span>
+                                  <h3 className="font-semibold text-foreground mt-1 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                    {note.title}
+                                  </h3>
+
+                                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                    <span className="flex items-center gap-1">
+                                      <Eye className="w-3.5 h-3.5" />
+                                      {note.views}
+                                    </span>
+                                    <span className="flex items-center gap-1">
+                                      <Download className="w-3.5 h-3.5" />
+                                      {note.downloads}
+                                    </span>
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-3.5 h-3.5" />
+                                      {note.duration}
+                                    </span>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            </Link>
+                          ))}
+                        </>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
             </div>
 
             {/* Load More */}

@@ -2,7 +2,9 @@ import { Layout } from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import contactSchema from "@/components/schema/formSchema";
 
 const contactInfo = [
   {
@@ -26,17 +28,16 @@ const contactInfo = [
 ];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(contactSchema),
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+  const sendQuery = (data: any) => {
+    console.log(data);
   };
 
   return (
@@ -57,8 +58,8 @@ export default function Contact() {
               We'd Love to <span className="gradient-text">Hear From You</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Have questions, suggestions, or want to collaborate? 
-              Reach out to us and we'll get back to you as soon as possible.
+              Have questions, suggestions, or want to collaborate? Reach out to
+              us and we'll get back to you as soon as possible.
             </p>
           </motion.div>
 
@@ -112,7 +113,9 @@ export default function Contact() {
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Sunday - Friday</span>
+                    <span className="text-muted-foreground">
+                      Sunday - Friday
+                    </span>
                     <span className="text-foreground">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
@@ -134,7 +137,7 @@ export default function Contact() {
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Send us a Message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(sendQuery)} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -142,10 +145,7 @@ export default function Contact() {
                       </label>
                       <input
                         type="text"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
+                        {...register("name")}
                         placeholder="John Doe"
                         className="w-full h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
                         required
@@ -157,10 +157,7 @@ export default function Contact() {
                       </label>
                       <input
                         type="email"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
+                        {...register("email")}
                         placeholder="john@example.com"
                         className="w-full h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
                         required
@@ -174,10 +171,7 @@ export default function Contact() {
                     </label>
                     <input
                       type="text"
-                      value={formData.subject}
-                      onChange={(e) =>
-                        setFormData({ ...formData, subject: e.target.value })
-                      }
+                      {...register("subject")}
                       placeholder="How can we help?"
                       className="w-full h-12 px-4 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground"
                       required
@@ -189,10 +183,7 @@ export default function Contact() {
                       Message
                     </label>
                     <textarea
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
+                      {...register("message")}
                       placeholder="Tell us more about your inquiry..."
                       rows={5}
                       className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground resize-none"

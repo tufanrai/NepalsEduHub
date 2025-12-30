@@ -6,10 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Notes from "./pages/Notes";
 import AIAssistant from "./pages/AIAssistant";
-import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import SpecificNote from "./pages/SpecificNote";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +22,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/:id" element={<SpecificNote />} />
           <Route path="/ai-assistant" element={<AIAssistant />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
