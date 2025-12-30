@@ -237,7 +237,6 @@ export default function Notes() {
             </div>
 
             {/* Notes Grid/List */}
-
             <div
               className={cn(
                 "gap-6",
@@ -480,7 +479,7 @@ export default function Notes() {
                             .filter(
                               (note) =>
                                 note.title.split(" ").includes(searchQuery) ||
-                                note.subject.split(" ").includes(searchQuery)
+                                note.subject.match(searchQuery)
                             )
                             .map((note, index) => (
                               <Link to={`/notes/${note.id}`}>
