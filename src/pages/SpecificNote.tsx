@@ -56,9 +56,9 @@ const SpecificNote = () => {
 
       {/* Content section */}
       <section className="py-16 bg-white">
-        <div className="container grid grid-cols-5 px-4 lg:px-8">
+        <div className="container grid grid-cols-6 px-4 lg:px-8">
           {/* Social Links */}
-          <div className="col-span-1 w-full flex items-start justify-end py-12">
+          <div className="col-span-1 w-full flex items-start justify-end py-12 h-screen">
             <ul className="sticky top-5 flex flex-col items-end justify-start gap-1">
               <li>
                 <button className="p-3 font-regural text-xl text-white bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 ease duration-200 hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500">
@@ -158,8 +158,8 @@ const SpecificNote = () => {
           </div>
 
           {/* Youtube video links  and quick navs */}
-          <div className="col-span-1 h-screen">
-            <div className="sticky top-5 flex flex-col items-start justify-start gap-8">
+          <div className="col-span-2 h-screen">
+            <div className="sticky top-5 flex flex-col items-start justify-start gap-2">
               {/* Quick navigation to sub-topics */}
               <ul className="sticky top-5 flex flex-col items-start justify-start gap-1">
                 <li>
@@ -190,8 +190,10 @@ const SpecificNote = () => {
               </ul>
 
               {/* YouTube video section */}
+              <h2 className="text-md font-bold text-foreground mt-8">
+                Explanation
+              </h2>
               <iframe
-                className="mt-8"
                 src="https://www.youtube.com/embed/ttpO7wNqFv8?si=jXNXn8GT9l9kMIcY"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
