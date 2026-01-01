@@ -1,41 +1,17 @@
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowLeft,
-  Calendar,
-  Facebook,
-  Instagram,
-  Youtube,
-} from "lucide-react";
+import { ArrowLeft, Clock, Facebook, Instagram, Youtube } from "lucide-react";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-
-interface IArticles {
-  subject: string;
-  date: string;
-  title: string;
-  description: string;
-}
-
-const article: IArticles = {
-  subject: "Physics",
-  date: "2025-03-15",
-  title: "Title",
-  description: `Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-`,
-};
+import { article } from "@/lib/Contents";
 
 const SpecificNote = () => {
-  const { id } = useParams();
+  console.log(article.description.split("\n\n"));
+  const arr = article.description.split("\n\n");
+
+  arr.forEach((val) =>
+    val.startsWith("## ") ? console.log(val) : console.log("normal text")
+  );
   return (
     <Layout>
       {/* Hero section */}
@@ -59,7 +35,7 @@ const SpecificNote = () => {
             >
               <Link to="/notes">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to News
+                Back to Notes
               </Link>
             </Button>
             <div className="flex items-center gap-4 mb-4">
@@ -67,8 +43,8 @@ const SpecificNote = () => {
                 {article.subject}
               </span>
               <span className="flex items-center gap-1.5 text-neutral-400 text-sm">
-                <Calendar className="w-4 h-4" />
-                {article.date}
+                <Clock className="w-4 h-4" />
+                {article.read}
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-300 leading-tight">
@@ -83,7 +59,7 @@ const SpecificNote = () => {
         <div className="container grid grid-cols-5 px-4 lg:px-8">
           {/* Social Links */}
           <div className="col-span-1 w-full flex items-start justify-end py-12">
-            <ul className="flex flex-col items-end justify-start gap-1">
+            <ul className="sticky top-5 flex flex-col items-end justify-start gap-1">
               <li>
                 <button className="p-3 font-regural text-xl text-white bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 ease duration-200 hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500">
                   <Instagram />
@@ -105,7 +81,10 @@ const SpecificNote = () => {
           {/* Notes details */}
           <div className="col-span-3 px-8 py-12">
             {/* Article Content */}
-            <article className="prose prose-lg max-w-none">
+            <article
+              style={{ whiteSpace: "pre-wrap" }}
+              className="prose prose-lg max-w-none"
+            >
               {article.description.split("\n\n").map((block, idx) => {
                 if (block.startsWith("## ")) {
                   return (
@@ -118,9 +97,19 @@ const SpecificNote = () => {
                   );
                 }
                 if (block.startsWith("**") && block.includes(":**")) {
+                  const text = block.replace(/\*\*/g, "");
+                  const id = text
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/(^-|-$)/g, "");
+
                   return (
-                    <p key={idx} className="text-foreground font-semibold mb-2">
-                      {block.replace(/\*\*/g, "")}
+                    <p
+                      key={idx}
+                      id={id}
+                      className="text-foreground font-semibold mb-2"
+                    >
+                      {text}
                     </p>
                   );
                 }
@@ -150,21 +139,64 @@ const SpecificNote = () => {
                     </ol>
                   );
                 }
-                return (
-                  <p
-                    key={idx}
-                    className="text-muted-foreground mb-4 leading-relaxed"
-                  >
-                    {block}
-                  </p>
-                );
+                if (
+                  !block.startsWith("## ") ||
+                  !block.startsWith("**") ||
+                  !block.startsWith("- ")
+                ) {
+                  return (
+                    <p
+                      key={idx}
+                      className="text-muted-foreground mb-4 leading-relaxed"
+                    >
+                      {block}
+                    </p>
+                  );
+                }
               })}
             </article>
           </div>
 
-          {/* Youtube video links */}
-          <div className="col-span-1 flex flex-col items-center justify-start gap-8">
-            {/* YouTube video section */}
+          {/* Youtube video links  and quick navs */}
+          <div className="col-span-1 h-screen">
+            <div className="sticky top-5 flex flex-col items-start justify-start gap-8">
+              {/* Quick navigation to sub-topics */}
+              <ul className="sticky top-5 flex flex-col items-start justify-start gap-1">
+                <li>
+                  <h2 className="text-md font-bold text-foreground">
+                    Quick navs
+                  </h2>
+                </li>
+                {article.description.split("\n\n").map((subTopic, idx) =>
+                  subTopic.startsWith("**") && subTopic.includes(":**") ? (
+                    <li
+                      className="cursor-pointer ease duration-300 font-regural text-md text-muted-foreground hover:text-foreground"
+                      key={idx}
+                    >
+                      <a
+                        href={`#${subTopic
+                          .replace(/\*\*\:/g, "")
+                          .toLowerCase()
+                          .replace(/[^a-z0-9]+/g, "-")
+                          .replace(/(^-|-$)/g, "")}`}
+                      >
+                        {subTopic.replace(/\*\*/g, "")}
+                      </a>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+
+              {/* YouTube video section */}
+              <iframe
+                className="mt-8"
+                src="https://www.youtube.com/embed/ttpO7wNqFv8?si=jXNXn8GT9l9kMIcY"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
