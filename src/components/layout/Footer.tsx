@@ -14,7 +14,9 @@ import {
 const footerLinks = {
   quickLinks: [
     { name: "Notes Library", path: "/notes" },
-    { name: "AI Assistant", path: "/ai-assistant" },
+    { name: "About us", path: "/about" },
+    { name: "Contact us", path: "/contact" },
+    // { name: "AI Assistant", path: "/ai-assistant" },
   ],
   resources: [
     { name: "Grade 8 Notes", path: "/notes?level=grade-8" },

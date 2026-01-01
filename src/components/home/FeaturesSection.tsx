@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { Bot, Download, Brain, Target, Clock } from "lucide-react";
 
 const features = [
-  {
-    icon: Bot,
-    title: "AI Study Assistant",
-    description:
-      "Get instant help with your questions using our intelligent AI tutor that understands Nepali curriculum",
-  },
+  // {
+  //   icon: Bot,
+  //   title: "AI Study Assistant",
+  //   description:
+  //     "Get instant help with your questions using our intelligent AI tutor that understands Nepali curriculum",
+  // },
   {
     icon: Download,
     title: "Offline Access",

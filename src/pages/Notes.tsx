@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -124,6 +124,27 @@ export default function Notes() {
   const [selectedLevel, setSelectedLevel] = useState("All Levels");
   const [selectedSubject, setSelectedSubject] = useState("All Subjects");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  useEffect(() => {
+    const Std_level = sessionStorage.getItem("level") ?? undefined;
+    const Std_search = sessionStorage.getItem("search") ?? undefined;
+
+    if (Std_level !== undefined) {
+      setSelectedLevel(Std_level);
+
+      setTimeout(() => {
+        sessionStorage.removeItem("level");
+      }, 1000);
+    }
+
+    if (Std_search !== undefined) {
+      setSearchQuery(Std_search);
+
+      setTimeout(() => {
+        sessionStorage.removeItem("search");
+      }, 1000);
+    }
+  }, []);
 
   return (
     <Layout>

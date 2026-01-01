@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { GraduationCap, BookOpen, Award, Building2, ArrowRight } from "lucide-react";
+import {
+  GraduationCap,
+  BookOpen,
+  Award,
+  Building2,
+  ArrowRight,
+} from "lucide-react";
 
 const levels = [
   {
-    id: "grade-8",
+    id: "Grade 8",
     name: "Grade 8",
-    description: "Foundation building with comprehensive notes for all subjects",
+    description:
+      "Foundation building with comprehensive notes for all subjects",
     icon: BookOpen,
     subjects: 12,
     notes: 150,
@@ -15,7 +22,7 @@ const levels = [
     iconColor: "text-blue-600",
   },
   {
-    id: "grade-10",
+    id: "Grade 10",
     name: "Grade 10 (SEE)",
     description: "Board exam preparation with past papers and solutions",
     icon: GraduationCap,
@@ -26,9 +33,10 @@ const levels = [
     iconColor: "text-green-600",
   },
   {
-    id: "plus-2",
+    id: "+2 level",
     name: "+2 Level",
-    description: "Advanced curriculum covering Science, Management & Humanities",
+    description:
+      "Advanced curriculum covering Science, Management & Humanities",
     icon: Award,
     subjects: 10,
     notes: 320,
@@ -37,7 +45,7 @@ const levels = [
     iconColor: "text-purple-600",
   },
   {
-    id: "university",
+    id: "University",
     name: "University",
     description: "Bachelor's level resources from TU, KU, PU and more",
     icon: Building2,
@@ -51,6 +59,11 @@ const levels = [
 
 export function QuickAccessSection() {
   const navigate = useNavigate();
+
+  const setLevel = (level: string) => {
+    sessionStorage.setItem("level", level);
+    navigate("/notes");
+  };
 
   return (
     <section className="py-20 bg-secondary/30">
@@ -66,7 +79,8 @@ export function QuickAccessSection() {
             Choose Your Level
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Access quality educational resources tailored for every academic level in Nepal
+            Access quality educational resources tailored for every academic
+            level in Nepal
           </p>
         </motion.div>
 
@@ -81,20 +95,26 @@ export function QuickAccessSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => navigate(`/notes?level=${level.id}`)}
+                onClick={() => setLevel(level.id)}
                 className="group relative bg-card rounded-2xl p-6 shadow-card hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-2 border border-border/50"
               >
                 {/* Gradient Background */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${level.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
-                
+                <div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${level.color} opacity-0 group-hover:opacity-100 transition-opacity`}
+                />
+
                 <div className="relative">
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-xl ${level.iconBg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`w-14 h-14 rounded-xl ${level.iconBg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}
+                  >
                     <Icon className={`w-7 h-7 ${level.iconColor}`} />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold text-foreground mb-2">{level.name}</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {level.name}
+                  </h3>
                   <p className="text-muted-foreground text-sm mb-5 line-clamp-2">
                     {level.description}
                   </p>
@@ -102,12 +122,16 @@ export function QuickAccessSection() {
                   {/* Stats */}
                   <div className="flex items-center gap-4 mb-5">
                     <div>
-                      <p className="text-2xl font-bold text-primary">{level.subjects}</p>
+                      <p className="text-2xl font-bold text-primary">
+                        {level.subjects}
+                      </p>
                       <p className="text-xs text-muted-foreground">Subjects</p>
                     </div>
                     <div className="w-px h-10 bg-border" />
                     <div>
-                      <p className="text-2xl font-bold text-primary">{level.notes}+</p>
+                      <p className="text-2xl font-bold text-primary">
+                        {level.notes}+
+                      </p>
                       <p className="text-xs text-muted-foreground">Notes</p>
                     </div>
                   </div>

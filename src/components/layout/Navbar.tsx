@@ -1,23 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  BookOpen,
-  Bot,
-  LayoutDashboard,
-  Info,
-  Mail,
-  Home,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X, BookOpen, Info, Mail, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
   { name: "Notes", path: "/notes", icon: BookOpen },
-  { name: "AI Assistant", path: "/ai-assistant", icon: Bot },
   { name: "About", path: "/about", icon: Info },
   { name: "Contact", path: "/contact", icon: Mail },
 ];
