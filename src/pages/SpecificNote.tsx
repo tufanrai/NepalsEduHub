@@ -55,7 +55,7 @@ const SpecificNote = () => {
       </section>
 
       {/* Content section */}
-      <section className="py-16 bg-white">
+      <section className="bg-white">
         <div className="container grid grid-cols-6 px-4 lg:px-8">
           {/* Social Links */}
           <div className="col-span-1 w-full flex items-start justify-end py-12 h-screen">
@@ -79,7 +79,7 @@ const SpecificNote = () => {
           </div>
 
           {/* Notes details */}
-          <div className="col-span-3 px-8 py-12">
+          <div className="col-span-3 px-8 pb-12">
             {/* Article Content */}
             <article
               style={{ whiteSpace: "pre-wrap" }}
@@ -158,7 +158,7 @@ const SpecificNote = () => {
           </div>
 
           {/* Youtube video links  and quick navs */}
-          <div className="col-span-2 h-screen">
+          <div className="col-span-2 h-screen py-12">
             <div className="sticky top-5 flex flex-col items-start justify-start gap-2">
               {/* Quick navigation to sub-topics */}
               <ul className="sticky top-5 flex flex-col items-start justify-start gap-1">
