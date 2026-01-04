@@ -2,16 +2,11 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Facebook, Instagram, Youtube } from "lucide-react";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { article } from "@/lib/Contents";
+import { b, P } from "node_modules/framer-motion/dist/types.d-DagZKalS";
 
 const SpecificNote = () => {
-  console.log(article.description.split("\n\n"));
-  const arr = article.description.split("\n\n");
-
-  arr.forEach((val) =>
-    val.startsWith("## ") ? console.log(val) : console.log("normal text")
-  );
   return (
     <Layout>
       {/* Hero section */}
@@ -86,64 +81,158 @@ const SpecificNote = () => {
               className="prose prose-lg max-w-none"
             >
               {article.description.split("\n\n").map((block, idx) => {
+                // Sub-heading
                 if (block.startsWith("## ")) {
                   return (
                     <h2
                       key={idx}
-                      className="text-xl font-bold text-foreground mt-8 mb-4"
+                      id={block
+                        .replace("## ", "")
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/(^-|-$)/g, "")}
+                      className="text-xl font-bold text-foreground mt-8 mb-4 cursor-pointer ease duration-300 relative after:content-['#'] after:hidden hover:after:inline hover:after:italic hover:after:text-blue-500/50 hover:after:absolute hover:after:right-auto hover:after:bottom-0"
                     >
                       {block.replace("## ", "")}
                     </h2>
                   );
                 }
-                if (block.startsWith("**") && block.includes(":**")) {
-                  const text = block.replace(/\*\*/g, "");
-                  const id = text
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, "-")
-                    .replace(/(^-|-$)/g, "");
 
+                // Bold text
+                if (block.startsWith("**") && block.includes("**")) {
+                  const text = block.replace(/\*\*/g, "");
                   return (
-                    <p
-                      key={idx}
-                      id={id}
-                      className="text-foreground font-semibold mb-2"
-                    >
+                    <p key={idx} className="text-foreground font-semibold mb-2">
                       {text}
                     </p>
                   );
                 }
+
+                // List text
                 if (block.startsWith("- ")) {
                   const items = block.split("\n");
+
+                  // split the texts which starts with - and also split the test which has :** in it.
+                  const refinedText = items
+                    .map((item) => item.replace("- ", ""))
+                    .map((item) => item.split(":**"));
+
                   return (
                     <ul
                       key={idx}
                       className="list-disc list-inside space-y-2 text-muted-foreground mb-4"
                     >
-                      {items.map((item, i) => (
-                        <li key={i}>{item.replace("- ", "")}</li>
+                      {refinedText.map((items, idx) => (
+                        <li key={idx}>
+                          <>
+                            {items.map((item, index) => (
+                              <>
+                                {/* Makes the text bold where the string starts with  ** */}
+                                {item && item.startsWith("**") ? (
+                                  <b key={index}>{item.replace("**", "")}</b>
+                                ) : (
+                                  <>
+                                    {/* Makes that text bold which lies in between the sentences of in the middle of the sentences */}
+                                    {item && item.includes("**") ? (
+                                      <>
+                                        {item.split(" *").map((val, i) => {
+                                          if (val.startsWith("*")) {
+                                            return (
+                                              <b key={i}>
+                                                {val.replace("*", " ")}
+                                              </b>
+                                            );
+                                          } else {
+                                            return (
+                                              <p className="inline" key={i}>
+                                                {val}
+                                              </p>
+                                            );
+                                          }
+                                        })}
+                                      </>
+                                    ) : (
+                                      <p className="inline" key={index}>
+                                        {item}
+                                      </p>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            ))}
+                          </>
+                        </li>
                       ))}
                     </ul>
                   );
                 }
+
+                // Ordered list
                 if (block.match(/^\d\./)) {
                   const items = block.split("\n");
+
+                  const refinedText = items
+                    .map((item) => item.replace(/^\d\.\s/, ""))
+                    .map((item) => item.split(":**"));
                   return (
                     <ol
                       key={idx}
                       className="list-decimal list-inside space-y-2 text-muted-foreground mb-4"
                     >
-                      {items.map((item, i) => (
-                        <li key={i}>{item.replace(/^\d\.\s/, "")}</li>
+                      {refinedText.map((items, idx) => (
+                        <li key={idx}>
+                          <>
+                            {items.map((item, index) => (
+                              <>
+                                {/* Makes the text bold where the string starts with  ** */}
+                                {item && item.startsWith("**") ? (
+                                  <b key={index}>{item.replace("**", "")}</b>
+                                ) : (
+                                  <>
+                                    {/* Makes that text bold which lies in between the sentences of in the middle of the sentences */}
+                                    {item && item.includes("**") ? (
+                                      <>
+                                        {item.split(" *").map((val, i) => {
+                                          if (val.startsWith("*")) {
+                                            return (
+                                              <b key={i}>
+                                                {val.replace("*", " ")}
+                                              </b>
+                                            );
+                                          } else {
+                                            return (
+                                              <p className="inline" key={i}>
+                                                {val}
+                                              </p>
+                                            );
+                                          }
+                                        })}
+                                      </>
+                                    ) : (
+                                      <p className="inline" key={index}>
+                                        {item}
+                                      </p>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            ))}
+                          </>
+                        </li>
                       ))}
                     </ol>
                   );
                 }
+
+                // Normal texts
                 if (
                   !block.startsWith("## ") ||
                   !block.startsWith("**") ||
                   !block.startsWith("- ")
                 ) {
+                  const refinedParagraph = block.includes("**")
+                    ? block.split(" *")
+                    : "";
                   return (
                     <p
                       key={idx}
@@ -168,19 +257,19 @@ const SpecificNote = () => {
                   </h2>
                 </li>
                 {article.description.split("\n\n").map((subTopic, idx) =>
-                  subTopic.startsWith("**") && subTopic.includes(":**") ? (
+                  subTopic.startsWith("## ") ? (
                     <li
-                      className="cursor-pointer ease duration-300 font-regural text-md text-muted-foreground hover:text-foreground"
+                      className="cursor-pointer ease duration-300 font-regural text-md text-muted-foreground hover:text-foreground hover:px-5"
                       key={idx}
                     >
                       <a
                         href={`#${subTopic
-                          .replace(/\*\*\:/g, "")
+                          .replace("## ", "")
                           .toLowerCase()
                           .replace(/[^a-z0-9]+/g, "-")
                           .replace(/(^-|-$)/g, "")}`}
                       >
-                        {subTopic.replace(/\*\*/g, "")}
+                        {subTopic.replace("## ", "")}
                       </a>
                     </li>
                   ) : (
