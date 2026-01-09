@@ -1,10 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Facebook, Instagram, Youtube } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { article } from "@/lib/Contents";
 
 const SpecificNote = () => {
+  const { id } = useParams();
+  console.log(id);
   return (
     <Layout>
       {/* Hero section */}
@@ -24,7 +26,7 @@ const SpecificNote = () => {
               variant="ghost"
               size="sm"
               asChild
-              className="mb-4 text-neutral-400 hover:text-white hover:bg-neutral-100/20"
+              className="mb-4 text-neutral-400 hover:text-neutral-500 hover:bg-neutral-100/20"
             >
               <Link to="/notes">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -33,15 +35,15 @@ const SpecificNote = () => {
             </Button>
             <div className="flex items-center gap-4 mb-4">
               <span className="px-3 py-1 bg-accent text-accent-foreground text-sm font-medium rounded-full">
-                {article.subject}
+                {article[id].subject}
               </span>
               <span className="flex items-center gap-1.5 text-neutral-400 text-sm">
                 <Clock className="w-4 h-4" />
-                {article.read}
+                {article[id].read}
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-300 leading-tight">
-              {article.title}
+              {article[id].title}
             </h1>
           </div>
         </div>
@@ -78,7 +80,7 @@ const SpecificNote = () => {
               style={{ whiteSpace: "pre-wrap" }}
               className="prose prose-lg max-w-none"
             >
-              {article.description.split("\n\n").map((block, idx) => {
+              {article[id].description.split("\n\n").map((block, idx) => {
                 // Sub-heading
                 if (block.startsWith("## ")) {
                   return (
@@ -262,8 +264,6 @@ const SpecificNote = () => {
                   const refinedParagraph = block.includes("**")
                     ? block.split(" *")
                     : [block];
-
-                  console.log("Refined context:", refinedParagraph);
                   return (
                     <>
                       {refinedParagraph.map((val, idx) => (
@@ -321,7 +321,7 @@ const SpecificNote = () => {
                     Quick navs
                   </h2>
                 </li>
-                {article.description.split("\n\n").map((subTopic, idx) =>
+                {article[id].description.split("\n\n").map((subTopic, idx) =>
                   subTopic.startsWith("## ") ? (
                     <li
                       className="cursor-pointer ease duration-300 font-regural text-md md:text-lg text-muted-foreground hover:text-foreground hover:px-2"
