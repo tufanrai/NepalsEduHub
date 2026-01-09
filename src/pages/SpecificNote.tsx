@@ -1,10 +1,8 @@
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Facebook, Instagram, Youtube } from "lucide-react";
-import React from "react";
 import { Link } from "react-router-dom";
 import { article } from "@/lib/Contents";
-import { b, P } from "node_modules/framer-motion/dist/types.d-DagZKalS";
 
 const SpecificNote = () => {
   return (
@@ -50,11 +48,11 @@ const SpecificNote = () => {
       </section>
 
       {/* Content section */}
-      <section className="bg-white">
-        <div className="container grid grid-cols-6 px-4 lg:px-8">
+      <section className="bg-neutral-100/50">
+        <div className="container flex flex-col md:flex-row items-start justify-center px-4 lg:px-8">
           {/* Social Links */}
-          <div className="col-span-1 w-full flex items-start justify-end py-12 h-screen">
-            <ul className="sticky top-5 flex flex-col items-end justify-start gap-1">
+          <div className="max-w-3xl flex items-start justify-end py-12 md:h-screen">
+            <ul className="md:sticky md:top-5 flex md:flex-col items-end justify-start gap-1">
               <li>
                 <button className="p-3 font-regural text-xl text-white bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 ease duration-200 hover:bg-gradient-to-r hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500">
                   <Instagram />
@@ -74,7 +72,7 @@ const SpecificNote = () => {
           </div>
 
           {/* Notes details */}
-          <div className="col-span-3 px-8 pb-12">
+          <div className="max-w-4xl bg-white shadow shadow-xl/30 px-8 pb-24">
             {/* Article Content */}
             <article
               style={{ whiteSpace: "pre-wrap" }}
@@ -91,7 +89,7 @@ const SpecificNote = () => {
                         .toLowerCase()
                         .replace(/[^a-z0-9]+/g, "-")
                         .replace(/(^-|-$)/g, "")}
-                      className="text-xl font-bold text-foreground mt-8 mb-4 cursor-pointer ease duration-300 relative after:content-['#'] after:hidden hover:after:inline hover:after:italic hover:after:text-blue-500/50 hover:after:absolute hover:after:right-auto hover:after:bottom-0"
+                      className="text-xl md:text-2xl font-bold text-foreground mt-8 mb-4 cursor-pointer ease duration-300 relative after:content-['#'] after:hidden hover:after:inline hover:after:italic hover:after:text-blue-500/50 hover:after:absolute hover:after:right-auto hover:after:bottom-0"
                     >
                       {block.replace("## ", "")}
                     </h2>
@@ -102,7 +100,10 @@ const SpecificNote = () => {
                 if (block.startsWith("**") && block.includes("**")) {
                   const text = block.replace(/\*\*/g, "");
                   return (
-                    <p key={idx} className="text-foreground font-semibold mb-2">
+                    <p
+                      key={idx}
+                      className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                    >
                       {text}
                     </p>
                   );
@@ -129,7 +130,12 @@ const SpecificNote = () => {
                               <>
                                 {/* Makes the text bold where the string starts with  ** */}
                                 {item && item.startsWith("**") ? (
-                                  <b key={index}>{item.replace("**", "")}</b>
+                                  <b
+                                    key={index}
+                                    className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                                  >
+                                    {item.replace("**", "")}
+                                  </b>
                                 ) : (
                                   <>
                                     {/* Makes that text bold which lies in between the sentences of in the middle of the sentences */}
@@ -138,13 +144,19 @@ const SpecificNote = () => {
                                         {item.split(" *").map((val, i) => {
                                           if (val.startsWith("*")) {
                                             return (
-                                              <b key={i}>
+                                              <b
+                                                key={i}
+                                                className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                                              >
                                                 {val.replace("*", " ")}
                                               </b>
                                             );
                                           } else {
                                             return (
-                                              <p className="inline" key={i}>
+                                              <p
+                                                className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                                                key={i}
+                                              >
                                                 {val}
                                               </p>
                                             );
@@ -152,7 +164,10 @@ const SpecificNote = () => {
                                         })}
                                       </>
                                     ) : (
-                                      <p className="inline" key={index}>
+                                      <p
+                                        className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                                        key={index}
+                                      >
                                         {item}
                                       </p>
                                     )}
@@ -186,7 +201,12 @@ const SpecificNote = () => {
                               <>
                                 {/* Makes the text bold where the string starts with  ** */}
                                 {item && item.startsWith("**") ? (
-                                  <b key={index}>{item.replace("**", "")}</b>
+                                  <b
+                                    key={index}
+                                    className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                                  >
+                                    {item.replace("**", "")}
+                                  </b>
                                 ) : (
                                   <>
                                     {/* Makes that text bold which lies in between the sentences of in the middle of the sentences */}
@@ -195,13 +215,19 @@ const SpecificNote = () => {
                                         {item.split(" *").map((val, i) => {
                                           if (val.startsWith("*")) {
                                             return (
-                                              <b key={i}>
+                                              <b
+                                                key={i}
+                                                className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                                              >
                                                 {val.replace("*", " ")}
                                               </b>
                                             );
                                           } else {
                                             return (
-                                              <p className="inline" key={i}>
+                                              <p
+                                                className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                                                key={i}
+                                              >
                                                 {val}
                                               </p>
                                             );
@@ -209,7 +235,10 @@ const SpecificNote = () => {
                                         })}
                                       </>
                                     ) : (
-                                      <p className="inline" key={index}>
+                                      <p
+                                        className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                                        key={index}
+                                      >
                                         {item}
                                       </p>
                                     )}
@@ -232,14 +261,50 @@ const SpecificNote = () => {
                 ) {
                   const refinedParagraph = block.includes("**")
                     ? block.split(" *")
-                    : "";
+                    : [block];
+
+                  console.log("Refined context:", refinedParagraph);
                   return (
-                    <p
-                      key={idx}
-                      className="text-muted-foreground mb-4 leading-relaxed"
-                    >
-                      {block}
-                    </p>
+                    <>
+                      {refinedParagraph.map((val, idx) => (
+                        <>
+                          {val && val.startsWith("*") && val.includes(":**") ? (
+                            <>
+                              {val.split(":**").map((sent, indx) => (
+                                <>
+                                  {sent.startsWith("*") ? (
+                                    <>
+                                      <b
+                                        key={indx}
+                                        className="text-foreground text-base lg:text-lg font-semibold mb-2"
+                                      >
+                                        {sent.replace("*", " ")}
+                                      </b>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <p
+                                        key={indx}
+                                        className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                                      >
+                                        {sent}
+                                      </p>
+                                    </>
+                                  )}
+                                </>
+                              ))}
+                            </>
+                          ) : (
+                            <p
+                              key={idx}
+                              className="text-foreground text-base lg:text-lg font-regural mb-2 inline"
+                            >
+                              {val}
+                            </p>
+                          )}
+                        </>
+                      ))}
+                    </>
                   );
                 }
               })}
@@ -247,7 +312,7 @@ const SpecificNote = () => {
           </div>
 
           {/* Youtube video links  and quick navs */}
-          <div className="col-span-2 h-screen py-12">
+          <div className="max-w-3xl h-screen py-12 px-5 hidden md:block">
             <div className="sticky top-5 flex flex-col items-start justify-start gap-2">
               {/* Quick navigation to sub-topics */}
               <ul className="sticky top-5 flex flex-col items-start justify-start gap-1">
@@ -259,7 +324,7 @@ const SpecificNote = () => {
                 {article.description.split("\n\n").map((subTopic, idx) =>
                   subTopic.startsWith("## ") ? (
                     <li
-                      className="cursor-pointer ease duration-300 font-regural text-md text-muted-foreground hover:text-foreground hover:px-5"
+                      className="cursor-pointer ease duration-300 font-regural text-md md:text-lg text-muted-foreground hover:text-foreground hover:px-2"
                       key={idx}
                     >
                       <a
@@ -279,14 +344,14 @@ const SpecificNote = () => {
               </ul>
 
               {/* YouTube video section */}
-              <h2 className="text-md font-bold text-foreground mt-8">
+              {/* <h2 className="text-md font-bold text-foreground mt-8">
                 Explanation
               </h2>
               <iframe
                 src="https://www.youtube.com/embed/ttpO7wNqFv8?si=jXNXn8GT9l9kMIcY"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
+              ></iframe> */}
             </div>
           </div>
         </div>
