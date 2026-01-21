@@ -10,6 +10,7 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
+import logo from "@/components/assets/sajiloVeda.png";
 
 const footerLinks = {
   quickLinks: [
@@ -47,10 +48,14 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-primary-foreground" />
+              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center overflow-hidden founded-full">
+                <img
+                  src={logo}
+                  alt="sajiloVeda"
+                  className="w-12 h-12 object-cover object-center"
+                />
               </div>
-              <span className="text-xl font-bold">Nepal Student Hub</span>
+              <span className="text-xl font-bold">Sajil Veda</span>
             </Link>
             <p className="text-accent-foreground/70 mb-6 max-w-sm leading-relaxed">
               Empowering Nepali students with quality education resources,
@@ -124,7 +129,7 @@ export function Footer() {
                   href="mailto:hello@nepalstudenthub.com"
                   className="text-accent-foreground/70 hover:text-primary transition-colors"
                 >
-                  hello@nepalstudenthub.com
+                  info@sajiloveda.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -133,7 +138,7 @@ export function Footer() {
                   href="tel:+9771234567890"
                   className="text-accent-foreground/70 hover:text-primary transition-colors"
                 >
-                  +977 1234567890
+                  +977 9803953652
                 </a>
               </li>
             </ul>
@@ -144,8 +149,7 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-accent-foreground/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-accent-foreground/60 text-sm">
-              © {new Date().getFullYear()} Nepal Student Hub. All rights
-              reserved.
+              © {new Date().getFullYear()} Sajilo Veda. All rights reserved.
             </p>
             <p className="text-accent-foreground/60 text-sm">
               Made with ❤️ for students of Nepal

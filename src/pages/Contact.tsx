@@ -10,14 +10,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@nepalstudenthub.com",
-    href: "mailto:hello@nepalstudenthub.com",
+    value: "info@sajiloveda.com",
+    href: "mailto:info@sajiloveda.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+977 1234567890",
-    href: "tel:+9771234567890",
+    value: "+977-9803953652",
+    href: "tel:+977 9803953652",
   },
   {
     icon: MapPin,
@@ -106,7 +106,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Office Hours */}
+              {/* Office Hours
               <div className="bg-card rounded-xl border border-border/50 p-6">
                 <h3 className="font-semibold text-foreground mb-4">
                   Office Hours
@@ -123,7 +123,7 @@ export default function Contact() {
                     <span className="text-foreground">10:00 AM - 2:00 PM</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
 
             {/* Contact Form */}

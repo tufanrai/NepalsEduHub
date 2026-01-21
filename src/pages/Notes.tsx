@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { levels, subjects, notes } from "@/lib/Contents";
+import { levels, subjects, article } from "@/lib/Contents";
 
 export default function Notes() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -168,7 +168,7 @@ export default function Notes() {
                 <>
                   {selectedSubject && selectedSubject !== "All Subjects" ? (
                     <>
-                      {notes
+                      {article
                         .filter(
                           (note) =>
                             note.level == selectedLevel &&
@@ -195,9 +195,7 @@ export default function Notes() {
                                     : "w-48 h-32 flex-shrink-0"
                                 )}
                               >
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <BookOpen className="w-12 h-12 text-muted-foreground/30" />
-                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center"></div>
                                 <div className="absolute top-3 left-3">
                                   <span className="px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
                                     {note.level}
@@ -243,7 +241,7 @@ export default function Notes() {
                     </>
                   ) : (
                     <>
-                      {notes
+                      {article
                         .filter((note, index) => note.level == selectedLevel)
                         .map((note, index) => (
                           <Link to={`/notes/${note.id}`}>
@@ -319,7 +317,7 @@ export default function Notes() {
                   {/* List of all the notes by subject */}
                   {selectedSubject && selectedSubject !== "All Subjects" ? (
                     <>
-                      {notes
+                      {article
                         .filter((note) => note.subject == selectedSubject)
                         .map((note, index) => (
                           <Link to={`/notes/${note.id}`}>
@@ -393,7 +391,7 @@ export default function Notes() {
                       {/* List of all the notes searched from search section */}
                       {searchQuery && searchQuery !== " " ? (
                         <>
-                          {notes
+                          {article
                             .filter(
                               (note) =>
                                 note.title.match(searchQuery) ||
@@ -469,7 +467,7 @@ export default function Notes() {
                       ) : (
                         <>
                           {/* List of all notes */}
-                          {notes.map((note, index) => (
+                          {article.map((note, index) => (
                             <Link to={`/notes/${note.id}`}>
                               <motion.div
                                 key={note.id}

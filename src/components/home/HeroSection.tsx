@@ -114,7 +114,7 @@ export function HeroSection() {
               className="mt-12 grid grid-cols-3 gap-8 max-w-lg mx-auto lg:mx-0"
             >
               {[
-                { value: "50K+", label: "Students" },
+                // { value: "50K+", label: "Students" },
                 { value: "1000+", label: "Notes" },
                 { value: "4 Levels", label: "Coverage" },
               ].map((stat, index) => (

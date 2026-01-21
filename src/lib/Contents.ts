@@ -3,7 +3,7 @@ export const levels = [
   { id: "all", name: "All Levels" },
   { id: "grade-8", name: "Grade 8" },
   { id: "grade-10", name: "Grade 10" },
-  { id: "plus-2", name: "+2 Level" },
+  { id: "plus_2", name: "+2 Level" },
   { id: "university", name: "University" },
 ];
 
@@ -21,105 +21,101 @@ export const subjects = [
   "Computer Science",
 ];
 
-// Dumy notes list
-export const notes = [
-  {
-    id: 1,
-    title: "Introduction to Algebra",
-    subject: "Mathematics",
-    level: "Grade 8",
-    views: 1234,
-    downloads: 567,
-    duration: "15 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 2,
-    title: "Newton's Laws of Motion",
-    subject: "Physics",
-    level: "Grade 10",
-    views: 2341,
-    downloads: 890,
-    duration: "20 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 3,
-    title: "Organic Chemistry Basics",
-    subject: "Chemistry",
-    level: "+2 Level",
-    views: 1876,
-    downloads: 654,
-    duration: "25 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 4,
-    title: "Cell Biology & Genetics",
-    subject: "Biology",
-    level: "University",
-    views: 3210,
-    downloads: 1234,
-    duration: "30 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 5,
-    title: "English Grammar Essentials",
-    subject: "English",
-    level: "Grade 8",
-    views: 987,
-    downloads: 432,
-    duration: "12 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 6,
-    title: "Nepali Literature Analysis",
-    subject: "Nepali",
-    level: "Grade 10",
-    views: 1543,
-    downloads: 765,
-    duration: "18 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 7,
-    title: "Data Structures in C++",
-    subject: "Computer Science",
-    level: "University",
-    views: 4321,
-    downloads: 1987,
-    duration: "35 min read",
-    thumbnail: "/placeholder.svg",
-  },
-  {
-    id: 8,
-    title: "Trigonometry Complete Guide",
-    subject: "Mathematics",
-    level: "+2 Level",
-    views: 2765,
-    downloads: 1123,
-    duration: "28 min read",
-    thumbnail: "/placeholder.svg",
-  },
-];
-
 interface IArticles {
   subject: string;
   read: string;
   title: string;
   description: string;
   id: string;
+  level: string;
+  views: number;
+  downloads: number;
+  duration: string;
+  thumbnail: string;
 }
 
 // Note's details
 export const article: IArticles[] = [
   {
     id: "1",
-    subject: "Physics",
+    level: "plus_2",
+    views: 250,
+    downloads: 100,
+    duration: "20 min",
+    thumbnail: "/placeholder.svg",
+    subject: "Mathematics",
     read: "15 min",
     title: "Introduction to Algorithm",
+    description: `## Main title
+
+**Lorem ipsum:** dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## List example
+
+- **Bold:** This is list no.1
+- **Bold2:** This is list **no.2:**
+- This is list **no.3
+
+1. This is ordered list
+2. This is unordered list
+3. **Bold:** This is ordered list **no.3:**
+
+Lorem ipsum dolor sit amet  adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## End of the note
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+`,
+  },
+  {
+    id: "2",
+    level: "+2 level",
+    views: 2850,
+    downloads: 1020,
+    duration: "20 min",
+    thumbnail: "/placeholder.svg",
+    subject: "Physics",
+    read: "15 min",
+    title: "Newton's Laws of Motion",
+
+    description: `## Main title
+
+**Lorem ipsum:** dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## List example
+
+- **Bold:** This is list no.1
+- **Bold2:** This is list **no.2:**
+- This is list **no.3
+
+Lorem ipsum dolor sit amet **consectetur:** adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## End of the note
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+`,
+  },
+  {
+    id: "3",
+    level: "University",
+    views: 250,
+    downloads: 100,
+    duration: "20 min",
+    thumbnail: "/placeholder.svg",
+    subject: "Computer Science",
+    read: "15 min",
+    title: "Data Structure in C++",
+
     description: `## Main title
 
 **Lorem ipsum** dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
@@ -146,4 +142,115 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
 `,
   },
+  {
+    id: "4",
+    level: "+2 level",
+    views: 250,
+    downloads: 100,
+    duration: "20 min",
+    thumbnail: "/placeholder.svg",
+    subject: "English",
+    read: "15 min",
+    title: "English Grammar Essentials",
+
+    description: `## Main title
+
+**Lorem ipsum:** dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## List example
+
+- **Bold:** This is list no.1
+- **Bold2:** This is list **no.2:**
+- This is list **no.3
+
+1. This is ordered list
+2. This is unordered list
+3. **Bold:** This is ordered list **no.3:**
+
+Lorem ipsum dolor sit amet **consectetur:** adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## End of the note
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+`,
+  },
+  {
+    id: "5",
+    level: "University",
+    views: 250,
+    downloads: 100,
+    duration: "20 min",
+    thumbnail: "/placeholder.svg",
+    subject: "Biology",
+    read: "15 min",
+    title: "Cell Biology & Genetics",
+
+    description: `## Main title
+
+**Lorem ipsum:** dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## List example
+
+- **Bold:** This is list no.1
+- **Bold2:** This is list **no.2:**
+- This is list **no.3
+
+1. This is ordered list
+2. This is unordered list
+3. **Bold:** This is ordered list **no.3:**
+
+Lorem ipsum dolor sit amet **consectetur:** adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+## End of the note
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+`,
+  },
+  {
+    id: "6",
+    title: "Introduction to C Programming",
+    read: "20 min",
+    level: "+2 level",
+    subject: "Computer Science",
+    views: 0,
+    downloads: 0,
+    duration: "20 min",
+    thumbnail: "../components/assets/c_programming_plus2.jpg",
+    description: `## Introduction to C Programming:##
+
+
+    1. **Definition of C Programming:**
+    C is a powerful, general-purpose programming language developed in the early 1970s. It is widely used
+because: - It is fast and efficient. - It forms the foundation for many modern languages (e.g., C++, Java,
+Python). - It allows low-level access to memory. - It is commonly used for system-level programming
+(operating systems, embedded systems).
+
+    2. Structure of C Programming
+
+    A basic C program looks like this:
+    `,
+  },
 ];
+
+/* 
+id: string;
+title: string;
+views: number;
+read: string;
+level: string;
+downloads: number;
+duration: string;
+thumbnail: string;
+subject: string;
+description: string;
+*/

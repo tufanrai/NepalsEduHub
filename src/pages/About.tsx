@@ -12,15 +12,23 @@ import {
 } from "lucide-react";
 
 const team = [
-  { name: "Tufan Rai", role: "Founder & CEO", image: "/placeholder.svg" },
-  { name: "Anshula Chand", role: "Head of Content", image: "/placeholder.svg" },
   {
-    name: "Bisesh Jung",
-    role: "Frontend Dev.",
+    name: "Tufan Rai",
+    role: "Full stack dev.",
     image: "/placeholder.svg",
   },
-  { name: "Kritesh Bhujel", role: "SEO Head", image: "/placeholder.svg" },
+  {
+    name: "Anshula Chand",
+    role: "Materials Manager",
+    image: "/placeholder.svg",
+  },
+  { name: "Kritesh Bhujel", role: "SEO Specialist", image: "/placeholder.svg" },
   { name: "Khushi Gupta", role: "Managerial Head", image: "/placeholder.svg" },
+  {
+    name: "Shiena KC",
+    role: "Social Media Specialist",
+    image: "/placeholder.svg",
+  },
 ];
 
 const values = [
@@ -174,7 +182,7 @@ export default function About() {
         </section>
 
         {/* Impact */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -208,7 +216,7 @@ export default function About() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Team */}
         <section className="py-16 bg-secondary/30">

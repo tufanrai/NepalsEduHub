@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, BookOpen, Info, Mail, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "../assets/sajiloVeda.png";
+``;
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
@@ -55,10 +57,15 @@ export function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                <BookOpen className="w-5 h-5 text-primary-foreground" />
+                <img
+                  src={logo}
+                  alt="sajiloVeda"
+                  width={"100%"}
+                  className="w-12 h-12 object-cover object-center"
+                />
               </div>
               <span className="text-lg font-bold text-foreground hidden sm:block">
-                Nepal's Edu Hub
+                Sajilo Veda
               </span>
             </Link>
 

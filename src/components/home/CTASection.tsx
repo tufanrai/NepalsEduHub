@@ -18,7 +18,7 @@ export function CTASection() {
           {/* Background Elements */}
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary-foreground/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl" />
-          
+
           <div className="relative">
             <motion.div
               initial={{ scale: 0.9 }}
@@ -35,8 +35,8 @@ export function CTASection() {
             </h2>
 
             <p className="text-lg sm:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10">
-              Join thousands of Nepali students already using Nepal Student Hub 
-              to achieve their academic goals. It's completely free to get started.
+              Join thousands of Nepali students already using Sajilo Veda to
+              achieve their academic goals. It's completely free to get started.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
