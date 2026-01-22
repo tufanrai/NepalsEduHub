@@ -1,6 +1,6 @@
 // Levels filter
 export const levels = [
-  { id: "all", name: "All Levels" },
+  { id: "all", name: "All level" },
   { id: "grade-8", name: "Grade 8" },
   { id: "grade-10", name: "Grade 10" },
   { id: "plus_2", name: "+2 Level" },

@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import {
-  BookOpen,
   Facebook,
   Instagram,
-  Linkedin,
-  Twitter,
   Mail,
   MapPin,
   Phone,
@@ -36,7 +33,6 @@ const footerLinks = {
 const socialLinks = [
   { name: "Facebook", icon: Facebook, href: "#" },
   { name: "Instagram", icon: Instagram, href: "#" },
-  { name: "LinkedIn", icon: Linkedin, href: "#" },
   { name: "YouTube", icon: Youtube, href: "#" },
 ];
 
@@ -55,9 +51,9 @@ export function Footer() {
                   className="w-12 h-12 object-cover object-center"
                 />
               </div>
-              <span className="text-xl font-bold">Sajil Veda</span>
+              <span className="text-xl font-bold">Sajilo Veda</span>
             </Link>
-            <p className="text-accent-foreground/70 mb-6 max-w-sm leading-relaxed">
+            <p className="text-accent-foreground/70 text-justify mb-6 max-w-sm leading-relaxed">
               Empowering Nepali students with quality education resources,
               AI-powered learning, and a collaborative community to solve
               real-world challenges.
@@ -147,12 +143,9 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-accent-foreground/10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <p className="text-accent-foreground/60 text-sm">
               © {new Date().getFullYear()} Sajilo Veda. All rights reserved.
-            </p>
-            <p className="text-accent-foreground/60 text-sm">
-              Made with ❤️ for students of Nepal
             </p>
           </div>
         </div>

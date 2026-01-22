@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, BookOpen, Info, Mail, Home } from "lucide-react";
+import {
+  Menu,
+  X,
+  BookOpen,
+  Info,
+  Mail,
+  Home,
+  BookOpenText,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "../assets/sajiloVeda.png";
-``;
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
   { name: "Notes", path: "/notes", icon: BookOpen },
   { name: "About", path: "/about", icon: Info },
+  { name: "Blogs", path: "/blog", icon: BookOpenText },
   { name: "Contact", path: "/contact", icon: Mail },
 ];
 
@@ -81,7 +89,7 @@ export function Navbar() {
                       "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                       isActive
                         ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                     )}
                   >
                     {item.name}
@@ -129,7 +137,7 @@ export function Navbar() {
                       "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
                       isActive
                         ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                     )}
                   >
                     <Icon className="w-5 h-5" />
